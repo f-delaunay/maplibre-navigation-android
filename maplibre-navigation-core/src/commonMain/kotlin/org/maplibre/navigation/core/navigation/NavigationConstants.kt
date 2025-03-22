@@ -60,6 +60,16 @@ object NavigationConstants {
     const val NAVIGATION_VIEW_DARK_THEME: String = "navigation_view_dark_theme"
 
     /**
+     * Key for the set light style url in preferences
+     */
+    const val NAVIGATION_VIEW_LIGHT_STYLE_URL: String = "navigation_view_light_style_url"
+
+    /**
+     * Key for the set dark style url in preferences
+     */
+    const val NAVIGATION_VIEW_DARK_STYLE_URL: String = "navigation_view_dark_style_url"
+
+    /**
      * Defines the minimum zoom level of the displayed map.
      */
     const val NAVIGATION_MINIMUM_MAP_ZOOM: Double = 7.0

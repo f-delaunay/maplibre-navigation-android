@@ -58,6 +58,12 @@ public abstract class NavigationViewOptions extends NavigationUiOptions {
   @Nullable
   public abstract LocationEngine locationEngine();
 
+  @Nullable
+  public abstract String lightStyleUrl();
+
+  @Nullable
+  public abstract String darkStyleUrl();
+
   @AutoValue.Builder
   public abstract static class Builder {
 
@@ -94,6 +100,10 @@ public abstract class NavigationViewOptions extends NavigationUiOptions {
     public abstract Builder speechPlayer(SpeechPlayer speechPlayer);
 
     public abstract Builder locationEngine(LocationEngine locationEngine);
+
+    public abstract Builder lightStyleUrl(String lightStyleUrl);
+
+    public abstract Builder darkStyleUrl(String darkStyleUrl);
 
     public abstract NavigationViewOptions build();
   }

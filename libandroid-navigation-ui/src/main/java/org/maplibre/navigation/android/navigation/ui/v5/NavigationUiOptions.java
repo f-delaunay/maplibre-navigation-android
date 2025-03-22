@@ -14,6 +14,11 @@ public abstract class NavigationUiOptions {
   @Nullable
   public abstract Integer darkThemeResId();
 
+  @Nullable
+  public abstract String lightStyleUrl();
+
+  @Nullable
+  public abstract String darkStyleUrl();
   public abstract boolean shouldSimulateRoute();
 
   public abstract boolean waynameChipEnabled();
