@@ -8,8 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.maplibre.navigation.android.navigation.ui.v5.listeners.NavigationListener;
-import org.maplibre.navigation.core.models.DirectionsRoute;
 import org.maplibre.android.camera.CameraPosition;
+import org.maplibre.navigation.core.models.DirectionsRoute;
 import org.maplibre.navigation.core.navigation.MapLibreNavigationOptions;
 import org.maplibre.navigation.core.navigation.NavigationConstants;
 
@@ -18,7 +18,8 @@ import org.maplibre.navigation.core.navigation.NavigationConstants;
  * <p>
  * Demonstrates the proper setup and usage of the view, including all lifecycle methods.
  */
-public class MapLibreNavigationActivity extends AppCompatActivity implements OnNavigationReadyCallback, NavigationListener {
+public class MapLibreNavigationActivity extends AppCompatActivity implements OnNavigationReadyCallback,
+    NavigationListener {
 
   private NavigationView navigationView;
 
@@ -92,6 +93,19 @@ public class MapLibreNavigationActivity extends AppCompatActivity implements OnN
   public void onNavigationReady(boolean isRunning) {
     NavigationViewOptions.Builder options = NavigationViewOptions.builder();
     options.navigationListener(this);
+
+    String lightStyleUrl = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+            .getString(NavigationConstants.NAVIGATION_VIEW_LIGHT_STYLE_URL, null);
+    if (lightStyleUrl != null) {
+      options.lightStyleUrl(lightStyleUrl);
+    }
+
+    String darkStyleUrl = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+            .getString(NavigationConstants.NAVIGATION_VIEW_DARK_STYLE_URL, null);
+    if (darkStyleUrl != null) {
+      options.darkStyleUrl(darkStyleUrl);
+    }
+
     extractRoute(options);
     extractConfiguration(options);
     options.navigationOptions(new MapLibreNavigationOptions());

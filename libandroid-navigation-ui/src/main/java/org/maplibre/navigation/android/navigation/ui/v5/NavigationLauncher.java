@@ -42,6 +42,9 @@ public class NavigationLauncher {
 
     storeThemePreferences(options, editor);
 
+    storeLightStyleUrl(options, editor);
+    storeDarkStyleUrl(options, editor);
+
     editor.apply();
 
     Intent navigationActivity = new Intent(context, MapLibreNavigationActivity.class);
@@ -74,6 +77,8 @@ public class NavigationLauncher {
       .remove(NavigationConstants.NAVIGATION_VIEW_PREFERENCE_SET_THEME)
       .remove(NavigationConstants.NAVIGATION_VIEW_LIGHT_THEME)
       .remove(NavigationConstants.NAVIGATION_VIEW_DARK_THEME)
+      .remove(NavigationConstants.NAVIGATION_VIEW_LIGHT_STYLE_URL)
+      .remove(NavigationConstants.NAVIGATION_VIEW_DARK_STYLE_URL)
       .apply();
   }
 
@@ -105,5 +110,13 @@ public class NavigationLauncher {
         NavigationConstants.NAVIGATION_VIEW_INITIAL_MAP_POSITION, options.initialMapCameraPosition()
       );
     }
+  }
+
+  private static void storeLightStyleUrl(NavigationLauncherOptions options, SharedPreferences.Editor editor) {
+    editor.putString(NavigationConstants.NAVIGATION_VIEW_LIGHT_STYLE_URL, options.lightStyleUrl());
+  }
+
+  private static void storeDarkStyleUrl(NavigationLauncherOptions options, SharedPreferences.Editor editor) {
+    editor.putString(NavigationConstants.NAVIGATION_VIEW_DARK_STYLE_URL, options.darkStyleUrl());
   }
 }
