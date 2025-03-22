@@ -92,6 +92,19 @@ public class MapLibreNavigationActivity extends AppCompatActivity implements OnN
   public void onNavigationReady(boolean isRunning) {
     NavigationViewOptions.Builder options = NavigationViewOptions.builder();
     options.navigationListener(this);
+
+    String lightStyleUrl = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(NavigationConstants.NAVIGATION_VIEW_LIGHT_STYLE_URL, null);
+    if (lightStyleUrl != null) {
+      options.lightStyleUrl(lightStyleUrl)
+    }
+
+    String darkStyleUrl = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(NavigationConstants.NAVIGATION_VIEW_DARK_STYLE_URL, null);
+    if (darkStyleUrl != null) {
+      options.darkStyleUrl(darkStyleUrl)
+    }
+
     extractRoute(options);
     extractConfiguration(options);
     options.navigationOptions(new MapLibreNavigationOptions());

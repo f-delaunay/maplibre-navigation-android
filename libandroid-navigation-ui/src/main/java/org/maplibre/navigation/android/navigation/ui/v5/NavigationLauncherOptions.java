@@ -21,6 +21,10 @@ public abstract class NavigationLauncherOptions extends NavigationUiOptions {
 
     public abstract Builder darkThemeResId(Integer darkThemeResId);
 
+    public abstract Builder lightStyleUrl(String lightStyleUrl);
+
+    public abstract Builder darkStyleUrl(Integer darkStyleUrl);
+
     public abstract Builder shouldSimulateRoute(boolean shouldSimulateRoute);
 
     public abstract Builder waynameChipEnabled(boolean waynameChipEnabled);

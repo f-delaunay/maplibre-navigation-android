@@ -2,6 +2,7 @@ package org.maplibre.navigation.android.navigation.ui.v5;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -95,6 +96,8 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
   private boolean isMapInitialized;
   private boolean isSubscribed;
   private LifecycleRegistry lifecycleRegistry;
+  private String lightStyleUrl;
+  private String darkStyleUrl;
 
   public NavigationView(Context context) {
     this(context, null);
@@ -235,7 +238,23 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
    */
   @Override
   public void onMapReady(final MapLibreMap mapLibreMap) {
-    mapLibreMap.setStyle(ThemeSwitcher.retrieveMapStyle(getContext()), new Style.OnStyleLoaded() {
+
+    String style = null;
+    if (isDarkMode(getContext())) {
+      if (darkStyleUrl != null) {
+        style = darkStyleUrl;
+      } else {
+        style = ThemeSwitcher.retrieveMapStyle(getContext();
+      }
+    } else {
+      if (lightStyleUrl != null) {
+        style = lightStyleUrl;
+      } else {
+        style = ThemeSwitcher.retrieveMapStyle(getContext();
+      }
+    }
+
+    mapLibreMap.setStyle(style), new Style.OnStyleLoaded() {
       @Override
       public void onStyleLoaded(@NonNull Style style) {
         initializeNavigationMap(mapView, mapLibreMap);
@@ -620,6 +639,8 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
   }
 
   private void initializeNavigation(NavigationViewOptions options) {
+    lightStyleUrl = options.lightStyleUrl();
+    darkStyleUrl = options.darkStyleUrl();
     establish(options);
     navigationViewModel.initialize(options);
     initializeNavigationListeners(options, navigationViewModel);
@@ -714,5 +735,10 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
     navigationViewModel.onDestroy(isChangingConfigurations());
     ImageCreator.getInstance().shutdown();
     navigationMap = null;
+  }
+
+  public boolean isDarkMode(Context context) {
+    int darkModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    return darkModeFlags == Configuration.UI_MODE_NIGHT_YES;
   }
 }
