@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("maven-publish")
 }
 
 apply {
@@ -121,4 +122,22 @@ configurations {
 apply {
     from(file("javadoc.gradle"))
     from(file("${rootDir}/gradle/publish-android.gradle"))
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "org.maplibre.navigation"
+                artifactId = "navigation-ui-android"
+                version = "5.0.0.1-pre11"
+
+                from(components["release"])
+            }
+        }
+
+        repositories {
+            maven(mavenLocal().url)
+        }
+    }
 }
