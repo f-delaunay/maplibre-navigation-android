@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.kotlin.dokka)
+    id("maven-publish")
 }
 
 apply {
@@ -128,5 +129,23 @@ configurations {
     configureEach {
         exclude(group = "org.maplibre.gl", module = "android-sdk-geojson")
         exclude(group = "org.maplibre.gl", module = "android-sdk-turf")
+    }
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "org.maplibre.navigation"
+                artifactId = "maplibre-navigation-core"
+                version = "5.0.0.2-pre11"
+
+                from(components["kotlin"])
+            }
+        }
+
+        repositories {
+            maven(mavenLocal().url)
+        }
     }
 }

@@ -8,11 +8,11 @@ apply from: file("${rootDir}/gradle/publish-root.gradle")
 group = project.ext.navigationArtifactGroupId
 version = project.ext.versionName
 
-tasks.register('dokkaHtmlJar', Jar.class) {
+/*tasks.register('dokkaHtmlJar', Jar.class) {
     dependsOn(dokkaHtml)
     from(dokkaHtml)
     archiveClassifier.set("javadoc")
-}
+}*/
 
 publishing {
     publications.withType(MavenPublication) {
@@ -28,7 +28,7 @@ publishing {
 
         project.logger.info("Publishing project $artifactId with version: ${version}")
 
-        artifact tasks.dokkaHtmlJar
+        //artifact tasks.dokkaHtmlJar
 
         pom {
             name = project.ext.navigationArtifactTitle
