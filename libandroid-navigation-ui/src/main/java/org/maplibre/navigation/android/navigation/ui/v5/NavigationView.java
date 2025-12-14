@@ -99,6 +99,9 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
   private String lightStyleUrl;
   private String darkStyleUrl;
 
+  private MapLibreMap mapLibreMap;
+  private boolean isNavigationStarted = false;
+
   public NavigationView(Context context) {
     this(context, null);
   }
@@ -239,30 +242,38 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
   @Override
   public void onMapReady(final MapLibreMap mapLibreMap) {
 
-    String style = null;
-    if (isDarkMode(getContext())) {
-      if (darkStyleUrl != null) {
-        style = darkStyleUrl;
-      } else {
-        style = ThemeSwitcher.retrieveMapStyle(getContext());
-      }
-    } else {
-      if (lightStyleUrl != null) {
-        style = lightStyleUrl;
-      } else {
-        style = ThemeSwitcher.retrieveMapStyle(getContext());
-      }
-    }
+    this.mapLibreMap = mapLibreMap;
 
-    mapLibreMap.setStyle(style, new Style.OnStyleLoaded() {
-      @Override
-      public void onStyleLoaded(@NonNull Style style) {
-        initializeNavigationMap(mapView, mapLibreMap);
-        initializeWayNameListener();
-        onNavigationReadyCallback.onNavigationReady(navigationViewModel.isRunning());
-        isMapInitialized = true;
+    if (!isNavigationStarted) {
+        loadMap();
+    }
+  }
+
+  private void loadMap() {
+      String style = null;
+      if (isDarkMode(getContext())) {
+          if (darkStyleUrl != null) {
+              style = darkStyleUrl;
+          } else {
+              style = ThemeSwitcher.retrieveMapStyle(getContext());
+          }
+      } else {
+          if (lightStyleUrl != null) {
+              style = lightStyleUrl;
+          } else {
+              style = ThemeSwitcher.retrieveMapStyle(getContext());
+          }
       }
-    });
+
+      mapLibreMap.setStyle(style, new Style.OnStyleLoaded() {
+          @Override
+          public void onStyleLoaded(@NonNull Style style) {
+              initializeNavigationMap(mapView, mapLibreMap);
+              initializeWayNameListener();
+              onNavigationReadyCallback.onNavigationReady(navigationViewModel.isRunning());
+              isMapInitialized = true;
+          }
+      });
   }
 
   @Override
@@ -639,6 +650,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
   }
 
   private void initializeNavigation(NavigationViewOptions options) {
+    isNavigationStarted = true;
     lightStyleUrl = options.lightStyleUrl();
     darkStyleUrl = options.darkStyleUrl();
     establish(options);
@@ -650,6 +662,10 @@ public class NavigationView extends CoordinatorLayout implements LifecycleOwner,
       initializeClickListeners();
       initializeOnCameraTrackingChangedListener();
       subscribeViewModels();
+    }
+
+    if (this.mapLibreMap != null) {
+      loadMap();
     }
   }
 
