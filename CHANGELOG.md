@@ -3,7 +3,52 @@ Changelog for the MapLibre Navigation SDK for Android
 
 MapLibre welcomes participation and contributions from everyone.
 
-### unreleased
+## Unreleased
+
+### v5.0.0-pre11 - Aug 30, 2025
+
+- Update to latest dependencies [#182](https://github.com/maplibre/maplibre-navigation-android/pull/182)
+- Enable dependabot [#182](https://github.com/maplibre/maplibre-navigation-android/pull/182)
+
+### v5.0.0-pre10 - Aug 22, 2025
+
+- Use highest location provider on iOS [#178](https://github.com/maplibre/maplibre-navigation-android/pull/178)
+- Improve AppleLocationEngine time-out behavior [#176](https://github.com/maplibre/maplibre-navigation-android/pull/176)
+
+### v5.0.0-pre9 - Jul 11, 2025
+
+- Update MapLibre native to v11.12.1
+
+### v5.0.0-pre8 - Jun 27, 2025
+
+- Fix ignoring empty legs when increasing navigation indices [#167](https://github.com/maplibre/maplibre-navigation-android/pull/167)
+
+### v5.0.0-pre7 - Jun 18, 2025
+
+- Fix AppleLocationEngine by enabling background location updates [#166](https://github.com/maplibre/maplibre-navigation-android/pull/166)
+
+### v5.0.0-pre6 - Jun 13, 2025
+
+- Fix crash on MapFpsDelegate, caused by null modifier [#141](https://github.com/maplibre/maplibre-navigation-android/issues/141)
+- Add explicit setting of leg/step index to MapLibreNavigation [#164](https://github.com/maplibre/maplibre-navigation-android/pull/164)
+
+Added sample code on how to use the GraphHopper routing server directly in GraphHopperNavigationActivity. Please make sure to add this line to the app/main/res/values/developer-config.xml:
+
+```xml
+  <string name="graphhopper_url" translatable="false">https://graphhopper.com/api/1/navigate?key=YOUR_API_KEY</string>
+```
+
+### v5.0.0-pre5 - May 16, 2025
+
+- Fix threading and platform characteristics for Apple location engine [#159](https://github.com/maplibre/maplibre-navigation-android/pull/159)
+
+### v5.0.0-pre4 - April 24, 2025
+
+- Fix wrong configured UI module publishing [#155](https://github.com/maplibre/maplibre-navigation-android/pull/155)
+
+### v5.0.0-pre3 - April 9, 2025
+
+- Fix not working AppleLocationEngine [#149](https://github.com/maplibre/maplibre-navigation-android/pull/149)
 
 ### v5.0.0-pre2 - March 9, 2025
 
