@@ -5,6 +5,7 @@
     android:id="@+id/navigationLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <org.maplibre.android.maps.MapView
@@ -24,6 +25,7 @@
         android:id="@+id/summaryBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
 
     <org.maplibre.navigation.android.navigation.ui.v5.RecenterButton
